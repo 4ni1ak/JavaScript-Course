@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Converter</title>
+</head>
+<body>
+    <h2>Temperature Converter</h2>
+    
+    <div>
+        <input type="radio" id="cButton" name="unit" value="Celsius" checked>
+        <label for="cButton">Celsius</label>
+        <input type="radio" id="fButton" name="unit" value="Fahrenheit">
+        <label for="fButton">Fahrenheit</label>
+    </div>
+    
+    <div>
+        <input type="text" id="textBox" placeholder="Enter temperature">
+        <button id="submitButton">Convert</button>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById("submitButton").addEventListener("click", function() {
+            let tempInput = document.getElementById("textBox").value;
+            let unitCelsius = document.getElementById("cButton").checked;
+            let unitFahrenheit = document.getElementById("fButton").checked;
+            let resultElement = document.getElementById("result");
+            
+            if (tempInput === "") {
+                resultElement.textContent = "Enter a temperature";
+                return;
+            }
+            
+            let temperature = parseFloat(tempInput);
+            
+            if (isNaN(temperature)) {
+                resultElement.textContent = "Invalid temperature";
+                return;
+            }
+            
+            if (unitCelsius) {
+                let convertedTemp = toCelsius(temperature);
+                resultElement.textContent = convertedTemp.toFixed(2) + "°C";
+            } else if (unitFahrenheit) {
+                let convertedTemp = toFahrenheit(temperature);
+                resultElement.textContent = convertedTemp.toFixed(2) + "°F";
+            } else {
+                resultElement.textContent = "Select a unit";
+            }
+        });
+        
+        function toCelsius(temp) {
+            return (temp - 32) * 5 / 9;
+        }
+        
+        function toFahrenheit(temp) {
+            return temp * 9 / 5 + 32;
+        }
+    </script>
+</body>
+</html>
